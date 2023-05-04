@@ -1,5 +1,6 @@
 # The name of this view in Looker is "Users"
 view: users {
+  label: "Users"
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
   sql_table_name: demo_db.users ;;
@@ -37,6 +38,7 @@ view: users {
   }
 
   dimension: city {
+    label: "City"
     type: string
     sql: ${TABLE}.city ;;
   }
@@ -59,7 +61,9 @@ view: users {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_month,
+      day_of_year
     ]
     sql: ${TABLE}.created_at ;;
   }
@@ -85,6 +89,7 @@ view: users {
   }
 
   dimension: state {
+    label: "State"
     type: string
     sql: ${TABLE}.state ;;
   }

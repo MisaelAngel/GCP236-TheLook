@@ -46,5 +46,5 @@
       display: popover
     model: mtrmisathelook
     explore: users
-    listens_to_filters: []
+    listens_to_filters: [State]
     field: users.city
