@@ -49,6 +49,11 @@ view: orders {
     type: count
     drill_fields: [detail*]
   }
+  measure: s_count {
+    type: count
+    drill_fields: [detail*]
+    filters: [status: "cancelled"]
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
