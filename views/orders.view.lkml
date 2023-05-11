@@ -36,7 +36,14 @@ view: orders {
 
   dimension: status {
     type: string
+    #hidden: yes
     sql: ${TABLE}.status ;;
+  }
+
+  dimension: is_order_cancelled {
+    #hidden: yes
+    type: yesno
+    sql: ${status}="cancelled" ;;
   }
 
   dimension: user_id {
@@ -52,7 +59,7 @@ view: orders {
   measure: s_count {
     type: count
     drill_fields: [detail*]
-    filters: [status: "cancelled"]
+    filters: [is_order_cancelled: "Yes"]
   }
 
   # ----- Sets of fields for drilling ------
