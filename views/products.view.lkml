@@ -1,4 +1,5 @@
 # The name of this view in Looker is "Products"
+include: "/views/orders.view.lkml"
 view: products {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
@@ -67,7 +68,9 @@ view: products {
   }
 
   measure: count {
-    type: count
-    drill_fields: [id, item_name, inventory_items.count]
+    type: count_distinct
+    drill_fields: [id, item_name]
   }
+
+
 }

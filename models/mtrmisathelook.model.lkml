@@ -115,13 +115,7 @@ explore: incremental_pdts_test {}
 
 explore: ints {}
 
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-}
+
 
 explore: orders {
   join: users {
@@ -193,7 +187,7 @@ explore: persons {}
 
 explore: persons2 {}
 
-explore: products {}
+#explore: products {}
 
 explore: salary {
   join: dept {
