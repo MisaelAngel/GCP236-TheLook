@@ -67,7 +67,7 @@ view: order_items {
 
   measure: total_sale_price {
     type: sum
-    sql: ${sale_price} + 5.804898167962446e+24;;
+    sql: ${sale_price};;
   }
 
   measure: average_sale_price {

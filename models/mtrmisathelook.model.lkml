@@ -7,6 +7,7 @@ include: "/Testing_hide_filter.dashboard.lookml"
 
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
+week_start_day: sunday
 
 datagroup: mtrmisathelook_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;

@@ -14,6 +14,7 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+
   # Here's what a typical dimension looks like in LookML.
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Age" in Explore.
@@ -21,6 +22,13 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [0,10,20,30,40,50,60,70,80,90]
+    style: integer
+    sql: ${age} ;;
   }
 
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
@@ -63,10 +71,25 @@ view: users {
       quarter,
       year,
       day_of_month,
-      day_of_year
+      day_of_year,
+      month_name,
+      week_of_year,
+      hour2
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: current_date {
+    type: string
+    sql: CURDATE() ;;
+  }
+
+  dimension: is_current_week {
+    type: yesno
+    sql: ${created_week_of_year} = weekofyear(NOW()) AND ${created_year}= year(NOW());;
+  }
+
+# SELECT CURDATE();
 
   dimension: email {
     type: string
@@ -91,7 +114,9 @@ view: users {
   dimension: state {
     label: "State"
     type: string
+    map_layer_name: us_states
     sql: ${TABLE}.state ;;
+    # html: <h1 title="The State of {{value}}">{{value}}</h1> ;;
   }
 
   dimension: zip {
@@ -104,10 +129,31 @@ view: users {
     drill_fields: [detail*]
   }
 
+  measure: count_california {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: [state: "California"]
+  }
+
+  measure: count_greater_than_1000 {
+    type: yesno
+    sql: ${count}>1000 ;;
+  }
+
+  measure: abandoned {
+    type: string
+    sql: case when ${count} > 1000 then "Abandoned" else "Not Abandoned" end;;
+  }
+
   measure: total_sale_price {
     type: sum
     precision: 0
-    sql: 100000000000000;;
+    sql: 1234;;
+  }
+
+  measure: no_agg {
+    type: number
+    sql: Sum(1000)/count(100);;
   }
   # ----- Sets of fields for drilling ------
   set: detail {
